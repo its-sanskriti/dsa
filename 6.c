@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+// Structure to represent a graph
+struct Graph {
+int numVertices;
+int adjMatrix[MAX][MAX]; 
+};
+// Create a graph
+// struct Graph* createGraph(int vertices) {
+// struct Graph* graph = (struct
+// Graph*)malloc(sizeof(struct Graph));
+// }
+// Queue implementation for BFS
+struct Queue {
+int items[MAX];
+int front;
+ int rear; 
+ };
+// Create a queue
+struct Queue* createQueue() {
+struct Queue* q = (struct Queue*)malloc(sizeof(struct Queue));
+q->front = -1;
+q->rear = -1; return q; }
+// Check if the queue is empty
+int isEmpty(struct Queue* q) {
+if (q->rear == -1)
+return 1; return 0; }
+void enqueue(struct Queue* q, int value) {
+if (q->rear == MAX - 1)
+printf("\nQueue is full!!");
+else {
+if (q->front == -1)
+q->front = 0; q->rear++;
+q->items[q->rear] = value; } }
+// Dequeue
+int dequeue(struct Queue* q) {
+int item;
+if (isEmpty(q)) {
+printf("Queue is empty");
+item = -1; }
+else { item = q->items[q->front];
+q->front++;
+if (q->front > q->rear) {
+q->front = q->rear = -1; } }
+return item; }
+// Create a graph
+struct Graph* createGraph(int vertices) {
+struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+graph->numVertices = vertices;
+for (int i = 0; i < vertices; i++)
+for (int j = 0; j < vertices; j++)
+graph->adjMatrix[i][j] = 0;
+return graph; }
+// Add edge to the graph
+void addEdge(struct Graph* graph, int src, int dest) {
+graph->adjMatrix[src][dest] = 1;
+graph->adjMatrix[dest][src] = 1; }
+// BFS algorithm
+int bfs(struct Graph* graph, int startVertex) {
+struct Queue* q = createQueue();
+int visited[MAX];
+for (int i = 0; i < graph->numVertices; i++)
+visited[i] = 0;
+visited[startVertex] = 1;
+enqueue(q, startVertex);
+while (!isEmpty(q)) {
+    graph->numVertices = vertices;
+for (int i = 0; i < vertices; i++)
+for (int j = 0; j < vertices; j++)
+graph->adjMatrix[i][j] = 0;
+return graph; 
+}
+}
+// DFS algorithm
+void dfs(struct Graph * graph, int vertex, int visited[])
+{
+visited[vertex] = 1;
+printf("%d ", vertex);
+for (int i = 0; i < graph->numVertices; i++) {
+if (graph->adjMatrix[vertex][i] == 1 && !visited[i]) {
+dfs(graph, i, visited); } } }
+int main() {
+struct Graph* graph = createGraph(6);
+addEdge(graph, 0, 1);
+addEdge(graph, 0, 2);
+addEdge(graph, 1, 2);
+addEdge(graph, 1, 4);
+addEdge(graph, 2, 3);
+addEdge(graph, 4, 5);
+int visited[MAX];
+for (int i = 0; i < 6; i++)
+visited[i] = 0;
+printf("Depth-First Search starting from vertex 0:\n");
+dfs(graph, 0, visited);
+return 0; }
