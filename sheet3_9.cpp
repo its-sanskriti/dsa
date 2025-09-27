@@ -1,5 +1,5 @@
 #include<iostream>
-using namespace tsd;
+using namespace std;
 void rotate_array(int arr[],int k){
      int start =0;
      int end = k-1;
@@ -27,7 +27,7 @@ for(int i =0;i<5;i++){
 }
 int main(){
  int arr[] ={2,3,4,5,6};
- int k ;
+ int k;
  cout<<"enter position to rotate the array "<<endl;
  cin>>k;
    rotate_array( arr,k);
