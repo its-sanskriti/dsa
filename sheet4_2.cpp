@@ -62,11 +62,48 @@ void delete_first(node*& head){
 
 }
 void delete_last(node*& head){
+    if (head == NULL) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+    if (head->next == NULL) {
+        delete head;
+        head = NULL;
+        return;
+    }
     node* temp = head;
-    while(temp-> next != NULL){
+    while(temp-> next->next != NULL){
         temp = temp->next;
     }
+    delete temp->next;
     temp->next =NULL;
+}
+void delete_by_value(node*& head,int val){
+     if (head == NULL) {   
+        cout << "List is empty!" << endl;
+        return;
+    }
+     if (head->data == val) {
+        node* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+    node*prev = NULL;
+    node* temp = head;
+    while(temp != NULL && temp->data != val){
+        prev = temp;
+        temp = temp->next;
+
+    }
+      if (temp == NULL) { 
+        cout << "Value not found!" << endl;
+        return;
+    }
+    prev->next = temp->next;
+    delete temp;
+
+
 }
 void display(node*&  head){
     node *temp = head;
@@ -93,6 +130,9 @@ int main(){
  display(head);
  cout<<"after deleting last"<<endl;
  delete_last(head);
+ display(head);
+ cout<<"delete by val"<<endl;
+ delete_by_value(head,42);
  display(head);
  return 0;
 
